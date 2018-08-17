@@ -1,0 +1,248 @@
+<body class="bg-light">
+  <div class="container">
+    <div class="py-5 text-center">
+      <img class="d-block mx-auto mb-4" src="./assets/brand/bootstrap-solid.svg" alt="" width="72" height="72">
+      <h2>Checkout form</h2>
+      <p class="lead">Below is an example form built entirely with Bootstrap's form controls.
+        <br> Each required form group has a validation state that can be triggered by attempting to submit the form without
+        completing it.
+      </p>
+    </div>
+
+    <div class="row">
+      <div class="col-md-8 offset-md-2 order-md-1">
+        <h4 class="mb-3">Billing address</h4>
+        <form [formGroup]="form">
+          <div class="row">
+            
+            <div class="col-md-6 mb-3">
+                {{ form.controls.firstName.errors | json}}
+              <label for="firstName">First name</label>
+              <input [class.alert-input]="form.controls.firstName.errors && form.controls.firstName.touched" type="text" class="form-control"
+                formControlName="firstName" id="firstName" placeholder="John">
+              <div *ngIf="form.controls.firstName.errors && (form.controls.firstName.touched || form.controls.firstName.dirty)">
+                <div *ngIf="form.controls.firstName.errors.required" class="alert alert-danger">
+                  Incomplete field
+                </div>
+                <div *ngIf="form.controls.firstName.errors.minlength" class="alert alert-danger">
+                  At least 4 characters
+                </div>
+                <div *ngIf="form.controls.firstName.errors.maxlength" class="alert alert-danger">
+                  Maximum 10 characters
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-6 mb-3">
+              {{ form.controls.lastName.errors | json}}
+              <label for="lastName">Last name</label>
+              <input [class.alert-input]="form.controls.lastName.errors && form.controls.lastName.touched" type="text" class="form-control"
+                formControlName="lastName" id="lastName" placeholder="Doe">
+              <div *ngIf="form.controls.lastName.errors && (form.controls.lastName.touched || form.controls.lastName.dirty)">
+                <div *ngIf="form.controls.lastName.errors.required" class="alert alert-danger">
+                  Incomplete field
+                </div>
+                <div *ngIf="form.controls.lastName.errors.minlength" class="alert alert-danger">
+                  At least 4 characters
+                </div>
+                <div *ngIf="form.controls.lastName.errors.maxlength" class="alert alert-danger">
+                  Maximum 10 characters
+                </div>
+              </div>
+            </div>
+            touched: {{ form.controls.postMail.valid }}
+          </div>
+          <div class="mb-3">
+            {{ form.controls.userName.errors | json }}
+            <label for="username">Username</label>
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <span class="input-group-text">@</span>
+              </div>
+              <input [class.alert-input]="form.controls.userName.errors && form.controls.userName.touched" type="text" class="form-control"
+                formControlName="userName" id="userName" placeholder="Jdoe">
+              <div *ngIf="form.controls.userName.errors && (form.controls.userName.touched || form.controls.userName.dirty)" style="width: 100%;">
+                <div *ngIf="form.controls.userName.errors.required" class="alert alert-danger">
+                  Incomplete field
+                </div>
+                <div *ngIf="form.controls.userName.errors.minlength" class="alert alert-danger">
+                  At least 4 characters
+                </div>
+                <div *ngIf="form.controls.userName.errors.maxlength" class="alert alert-danger">
+                  Maximum 6 characters
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="mb-3">
+            {{ form.controls.email.errors |json }}
+            <label for="email">Email
+              <span class="text-muted"></span>
+            </label>
+            <input [class.alert-input]="form.controls.email.errors && form.controls.email.touched" type="email" class="form-control"
+              formControlName="email" id="email" placeholder="you@example.com">
+            <div *ngIf="form.controls.email.errors && (form.controls.email.touched || form.controls.email.dirty)">
+              <div *ngIf="form.controls.email.errors.required" class="alert alert-danger">
+                Please enter an email.
+              </div>
+              {{ form.controls.email.errors.maxlength | json }}
+              <div *ngIf="form.controls.email.errors.maxlength" class="alert alert-danger">
+                Invalid email
+              </div>
+            </div>
+          </div>
+
+          <!-- Group of inputs -->
+          <div formGroupName="contact">
+            <div class="mb-3">
+                {{ form.get('contact').get('address').errors | json}}
+              <label for="address">Address</label>
+              <input [class.alert-input]="form.get('contact').get('address').errors && form.get('contact.address').touched" type="text"
+                class="form-control" formControlName="address" id="address" placeholder="923 Trusel St.Pomona, CA 91768">
+              <div *ngIf="form.get('contact.address').errors && (form.get('contact.address').touched || form.get('contact.address').dirty)">
+                <div *ngIf="form.get('contact.address').errors.required" class="alert alert-danger">
+                  Please enter your shipping address.
+                </div>
+                <div *ngIf="form.get('contact.address').errors.maxlength" class="alert alert-danger">
+                  Invalid address
+                </div>
+              </div>
+            </div>
+            <div class="mb-3">
+              {{ form.get('contact').get('phone').errors | json}}
+              <label for="phone">Phone
+              </label>
+              <input [class.alert-input]="form.get('contact').get('phone').errors && form.get('contact.phone').touched" type="text" class="form-control"
+                formControlName="phone" placeholder="+1-541-754-3010">
+              <div *ngIf="form.get('contact.phone').errors?.required && (form.get('contact.phone').touched || form.get('contact.phone').dirty)"
+                class="alert alert-danger">
+                <div *ngIf="form.get('contact.phone').errors.maxlength" class="alert alert-danger">
+                  Invalid phone number
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- End Group of inputs -->
+
+          <!-- Group of inputs -->
+          <div formGroupName="postMail" class="row">
+            <div class="col-md-4 mb-3">
+              <label for="country">Country</label>
+              <select class="custom-select d-block w-100" (change)="setIndex($event)">
+                <option>Choose...</option>
+                <option *ngFor="let country of countries" [value]="country.capital">{{ country.name }}</option>
+              </select>
+              <!-- {{ form.get('postMail.country').errors }}
+              {{ form.get('postMail.country').touched }} -->
+              <!-- <div *ngIf="form.get('postMail.country').errors?.required" class="alert alert-danger">
+                  Please select a valid country.
+            </div> -->
+            </div>
+            <div class="col-md-3 mb-3">
+              <label for="state">Country Code</label>
+              <input type="text" class="form-control" [value]="countries[index]?.alpha2Code" disabled placeholder="">
+            </div>
+            <div class="col-md-5 mb-3">
+              <label for="zip">Region</label>
+              <input type="text" class="form-control" [value]="countries[index]?.region" disabled placeholder="">
+            </div>
+          </div>
+          <!-- End Group of inputs -->
+
+          <hr class="mb-4">
+
+          <h4 class="mb-3">Payment</h4>
+
+          <div class="d-block my-3">
+            <div class="custom-control custom-radio">
+              <input id="credit" name="paymentMethod" type="radio" class="custom-control-input" checked>
+              <label class="custom-control-label" for="credit">Credit card</label>
+            </div>
+            <div class="custom-control custom-radio">
+              <input id="debit" name="paymentMethod" type="radio" class="custom-control-input">
+              <label class="custom-control-label" for="debit">Debit card</label>
+            </div>
+            <div class="custom-control custom-radio">
+              <input id="paypal" name="paymentMethod" type="radio" class="custom-control-input">
+              <label class="custom-control-label" for="paypal">PayPal</label>
+            </div>
+          </div>
+          <div formGroupName="payment" class="row">
+            <div class="col-md-6 mb-3">
+              {{ form.get('payment').get('cardName').errors |json }}
+              <label for="cc-name">Name on card</label>
+              <input [class.alert-input]="form.get('payment').get('cardName').errors && form.get('payment.cardName').touched" type="text"
+                class="form-control" formControlName="cardName" placeholder="Card name">
+              <small class="text-muted">Full name as displayed on card</small>
+              <div *ngIf="form.get('payment.cardName').errors && (form.get('payment.cardName').touched || form.get('payment.cardName').dirty)">
+                <div *ngIf="form.get('payment').get('cardName').errors?.required" class="alert alert-danger">
+                  Card name required
+                </div>
+                <div *ngIf="form.get('payment').get('cardName').errors.maxlength " class="alert alert-danger">
+                  Card name to long
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6 mb-3">
+              {{ form.get('payment').get('cardNumber').errors | json}}
+              <label for="cc-number">Credit card number</label>
+              <input [class.alert-input]="form.get('payment').get('cardNumber').errors && form.get('payment.cardNumber').touched" type="text"
+                class="form-control" formControlName="cardNumber" placeholder="Card number">
+              <div *ngIf="form.get('payment.cardNumber').errors && (form.get('payment.cardNumber').touched || form.get('payment.cardNumber').dirty)">
+                <div *ngIf="form.get('payment').get('cardNumber').errors?.required" class="alert alert-danger">
+                  Card number required
+                </div>
+                <div *ngIf="form.get('payment').get('cardNumber').errors.maxlength " class="alert alert-danger">
+                  Invalid card number
+                </div>
+              </div>
+            </div>
+          </div>
+          <div formGroupName="payment" class="row">
+            <div class="col-md-3 mb-3">
+              {{ form.get('payment').get('expiration').errors | json}}
+              <label for="cc-expiration">Expiration</label>
+              <input [class.alert-input]="form.get('payment').get('expiration').errors && form.get('payment.expiration').touched" type="text"
+                class="form-control" formControlName="expiration" placeholder="10/18">
+              <div *ngIf="form.get('payment.expiration').errors && (form.get('payment.expiration').touched || form.get('payment.expiration').dirty)">
+                <div *ngIf="form.get('payment').get('expiration').errors?.required" class="alert alert-danger">
+                  Required
+                </div>
+                <div *ngIf="form.get('payment').get('expiration').errors.minlength " class="alert alert-danger">
+                  Invalid expiration date
+                </div>
+                <div *ngIf="form.get('payment').get('expiration').errors.maxlength " class="alert alert-danger">
+                  Invalid expiration date
+                </div>
+              </div>
+            </div>
+            <div class="col-md-3 mb-3">
+              {{form.get('payment').get('cvv').errors | json }}
+              <label for="cc-cvv">CVV</label>
+              <input [class.alert-input]="form.get('payment').get('cvv').errors && form.get('payment.cvv').touched" type="text" class="form-control"
+                formControlName="cvv" placeholder="3 digits">
+              <div *ngIf="form.get('payment.cvv').errors && (form.get('payment.cvv').touched || form.get('payment.cvv').dirty)">
+                <div *ngIf="form.get('payment').get('cvv').errors?.required" class="alert alert-danger">
+                  Required
+                </div>
+                <div *ngIf="form.get('payment').get('cvv').errors.minlength " class="alert alert-danger">
+                  Invalid cvv
+                </div>
+                <div *ngIf="form.get('payment').get('cvv').errors.maxlength " class="alert alert-danger">
+                  Invalid cvv
+                </div>
+              </div>
+            </div>
+          </div>
+          <hr class="mb-4">
+          <button class="btn btn-primary btn-lg btn-block my-5" [disabled]="!form.valid" type="submit">Continue to checkout</button>
+          {{ form.valid }}
+        </form>
+
+        
+
+      </div>
+    </div>
+  </div>
+</body>

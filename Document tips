@@ -1,0 +1,58 @@
+To use ReactiveForms:
+
+1-Import: import { ReactiveFormsModule } from '@angular/forms';
+
+2-imports: [
+    BrowserModule,
+    ReactiveFormsModule
+  ],
+
+3-Inside HTML:
+<form [formGroup]="form"> !IMPORTANT
+
+3b-Optional to include groups:
+<form [formGroup]="form">
+    .
+    .
+    <div formGroupName="contact">
+    </div>
+    .
+
+</form>
+
+4-.ts File:
+import { FormGroup, FormBuilder } from '@angular/forms';
+
+form: FormGroup;
+title = 'reactiveForm';
+
+constructor(private fb:FormBuilder) {
+  this.form = fb.group({
+    firstName: 'John',
+    lastName: 'Doe',
+    userName: '@John',
+    email: 'john@dth.com',
+    contact: fb.group({
+      address: 'av park 123',
+      address2: '123-456789'
+    })
+  })
+}
+
+5-Input example:
+<input [class.alert-input]="form.controls.firstName.errors"type="text" class="form-control" formControlName="firstName" id="firstName" placeholder="">
+
+6-Alerts example:
+<div *ngIf="form.controls.firstName.errors.required" class="alert alert-danger">
+   Incomplete field
+</div>
+<div *ngIf="form.controls.firstName.errors.minlength" class="alert alert-danger">
+    At least 4 characters
+</div>
+<div *ngIf="form.controls.firstName.errors.maxlength" class="alert alert-danger">
+    Maximum 10 characters
+</div>
+
+
+
+
