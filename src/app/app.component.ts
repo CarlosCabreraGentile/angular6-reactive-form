@@ -33,7 +33,7 @@ export class AppComponent {
       email: ['', Validators.compose([
         Validators.required,
         Validators.email,
-        Validators.maxLength(16)
+        Validators.maxLength(30)
       ])],
       contact: fb.group({
         address: ['', Validators.compose([

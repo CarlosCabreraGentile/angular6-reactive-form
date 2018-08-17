@@ -16,7 +16,6 @@
           <div class="row">
             
             <div class="col-md-6 mb-3">
-                {{ form.controls.firstName.errors | json}}
               <label for="firstName">First name</label>
               <input [class.alert-input]="form.controls.firstName.errors && form.controls.firstName.touched" type="text" class="form-control"
                 formControlName="firstName" id="firstName" placeholder="John">
@@ -34,7 +33,6 @@
             </div>
 
             <div class="col-md-6 mb-3">
-              {{ form.controls.lastName.errors | json}}
               <label for="lastName">Last name</label>
               <input [class.alert-input]="form.controls.lastName.errors && form.controls.lastName.touched" type="text" class="form-control"
                 formControlName="lastName" id="lastName" placeholder="Doe">
@@ -50,10 +48,9 @@
                 </div>
               </div>
             </div>
-            touched: {{ form.controls.postMail.valid }}
           </div>
+
           <div class="mb-3">
-            {{ form.controls.userName.errors | json }}
             <label for="username">Username</label>
             <div class="input-group">
               <div class="input-group-prepend">
@@ -76,7 +73,6 @@
           </div>
 
           <div class="mb-3">
-            {{ form.controls.email.errors |json }}
             <label for="email">Email
               <span class="text-muted"></span>
             </label>
@@ -86,7 +82,6 @@
               <div *ngIf="form.controls.email.errors.required" class="alert alert-danger">
                 Please enter an email.
               </div>
-              {{ form.controls.email.errors.maxlength | json }}
               <div *ngIf="form.controls.email.errors.maxlength" class="alert alert-danger">
                 Invalid email
               </div>
@@ -96,7 +91,6 @@
           <!-- Group of inputs -->
           <div formGroupName="contact">
             <div class="mb-3">
-                {{ form.get('contact').get('address').errors | json}}
               <label for="address">Address</label>
               <input [class.alert-input]="form.get('contact').get('address').errors && form.get('contact.address').touched" type="text"
                 class="form-control" formControlName="address" id="address" placeholder="923 Trusel St.Pomona, CA 91768">
@@ -110,7 +104,6 @@
               </div>
             </div>
             <div class="mb-3">
-              {{ form.get('contact').get('phone').errors | json}}
               <label for="phone">Phone
               </label>
               <input [class.alert-input]="form.get('contact').get('phone').errors && form.get('contact.phone').touched" type="text" class="form-control"
@@ -133,11 +126,6 @@
                 <option>Choose...</option>
                 <option *ngFor="let country of countries" [value]="country.capital">{{ country.name }}</option>
               </select>
-              <!-- {{ form.get('postMail.country').errors }}
-              {{ form.get('postMail.country').touched }} -->
-              <!-- <div *ngIf="form.get('postMail.country').errors?.required" class="alert alert-danger">
-                  Please select a valid country.
-            </div> -->
             </div>
             <div class="col-md-3 mb-3">
               <label for="state">Country Code</label>
@@ -170,7 +158,6 @@
           </div>
           <div formGroupName="payment" class="row">
             <div class="col-md-6 mb-3">
-              {{ form.get('payment').get('cardName').errors |json }}
               <label for="cc-name">Name on card</label>
               <input [class.alert-input]="form.get('payment').get('cardName').errors && form.get('payment.cardName').touched" type="text"
                 class="form-control" formControlName="cardName" placeholder="Card name">
@@ -185,7 +172,6 @@
               </div>
             </div>
             <div class="col-md-6 mb-3">
-              {{ form.get('payment').get('cardNumber').errors | json}}
               <label for="cc-number">Credit card number</label>
               <input [class.alert-input]="form.get('payment').get('cardNumber').errors && form.get('payment.cardNumber').touched" type="text"
                 class="form-control" formControlName="cardNumber" placeholder="Card number">
@@ -199,9 +185,9 @@
               </div>
             </div>
           </div>
+
           <div formGroupName="payment" class="row">
             <div class="col-md-3 mb-3">
-              {{ form.get('payment').get('expiration').errors | json}}
               <label for="cc-expiration">Expiration</label>
               <input [class.alert-input]="form.get('payment').get('expiration').errors && form.get('payment.expiration').touched" type="text"
                 class="form-control" formControlName="expiration" placeholder="10/18">
@@ -218,7 +204,6 @@
               </div>
             </div>
             <div class="col-md-3 mb-3">
-              {{form.get('payment').get('cvv').errors | json }}
               <label for="cc-cvv">CVV</label>
               <input [class.alert-input]="form.get('payment').get('cvv').errors && form.get('payment.cvv').touched" type="text" class="form-control"
                 formControlName="cvv" placeholder="3 digits">
@@ -237,11 +222,7 @@
           </div>
           <hr class="mb-4">
           <button class="btn btn-primary btn-lg btn-block my-5" [disabled]="!form.valid" type="submit">Continue to checkout</button>
-          {{ form.valid }}
         </form>
-
-        
-
       </div>
     </div>
   </div>
