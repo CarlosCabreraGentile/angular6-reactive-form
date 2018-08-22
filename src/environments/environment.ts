@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  API_ENDPOINT: 'https://restcountries.eu/rest/v2/all'
+  API_ENDPOINT: 'https://restcountries.eu/rest/v2'
 
 };
 
